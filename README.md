@@ -1,111 +1,72 @@
-🎞️ AuraFilm: Vectorized Film Simulations
+# 🎞️ AuraFilm: Vectorized Film Simulations
 
 <div align="center">
 
 </div>
 
-🌟 Overview
+## ✨ 🌟 Project Overview
 
-AuraFilm is a high-performance Python tool dedicated to replicating the authentic, analog look of classic film stocks. This script leverages NumPy vectorization to apply complex, custom, and classic color shifts, grain, and tonal adjustments directly to image arrays, resulting in beautiful and efficient film simulation.
+**AuraFilm** is a high-performance **Python tool** dedicated to replicating the authentic, analog look of classic film stocks. This script leverages the power of **NumPy vectorization** to apply complex color shifts, grain, and tonal adjustments directly to image arrays, resulting in beautiful and highly efficient film simulation effects.
 
-This script contains the core filter functions that are also used in the related camcorder-revival-tool.
+> ℹ️ This script contains the core image filter functions that are also used in the related `camcorder-revival-tool` project.
 
-✨ Core Features & Simulations
+## 🚀 Core Features & Simulations
 
-🚀 Vectorized Speed: All core color, brightness, and grain application logic is implemented using NumPy, offering superior performance over traditional pixel-by-pixel processing.
+The library is built for speed and authenticity:
 
-🔬 Procedural Grain: Highly realistic noise addition, applied directly in the NumPy domain for speed and authenticity.
+* **⚡ Vectorized Speed:** All core logic (color shifts, contrast, grain) is implemented using **NumPy** arrays, ensuring superior performance over traditional pixel-by-pixel loops.
 
-📦 Minimal Dependencies: Focused solely on numpy and Pillow (PIL) for core image manipulation.
+* **🧪 Procedural Grain:** Highly realistic noise addition, applied directly in the NumPy domain for speed and an organic film look.
 
-Included Film Aesthetic Simulations:
+* **Minimal Dependencies:** Focused solely on two essential packages: `numpy` and `Pillow (PIL)`.
 
-Simulation Name
+### 🎨 Included Film Aesthetic Simulations
 
-Aesthetic Summary
+| Simulation Name | Aesthetic Summary | Key Characteristics | 
+ | ----- | ----- | ----- | 
+| `modern_fuji_sim` | **Cool & Saturated** | Cool greens, strong blues, high fidelity. | 
+| `terracotta_sun_sim` | **Warm & High Contrast** | Deep reds, crushed shadows, cinematic warmth. | 
+| `portra_800_sim` | **Soft & Fine Grain** | Soft colors, high saturation, distinct grain. | 
+| `reala_ace_sim** | **Smooth & Punchy** | Low grain, clear blacks, punchy highlights. | 
+| `dreamy_negative_sim` | **Muted & Shadow Lift** | Lifted shadows, soft contrast, dreamy mood. | 
 
-Key Characteristics
+## ⚙️ How to Use (As a Standalone Script)
 
-modern_fuji_sim
+The tool processes an input image file and saves the filtered result.
 
-Cool & Saturated
+### 1️⃣ Setup
 
-Cool greens, strong blues, high fidelity.
-
-terracotta_sun_sim
-
-Warm & High Contrast
-
-Deep reds, crushed shadows, cinematic warmth.
-
-portra_800_sim
-
-Soft & Fine Grain
-
-Soft colors, high saturation, distinct grain.
-
-reala_ace_sim
-
-Smooth & Punchy
-
-Low grain, clear blacks, punchy highlights.
-
-dreamy_negative_sim
-
-Muted & Shadow Lift
-
-Lifted shadows, soft contrast, dreamy mood.
-
-🛠️ How to Use (As a Standalone Script)
-
-The primary goal of this tool is to process an input image file and save the filtered result.
-
-1. Setup
-
-You only need to download the Python file (e.g., aura_film_script.py) and install the necessary packages:
-
+You only need to download the Python file (e.g., `aura_film_script.py`) and install the necessary packages using `pip`:
 pip install numpy pillow
 
+### 2️⃣ Applying a Filter
 
-2. Applying a Filter
+You can run the script directly from your terminal. Replace `input_photo.jpg` with your file and choose one of the filters from the table above.
 
-You can run the script directly from your terminal. Assuming the single Python file is named aura_film_script.py and contains all the logic, you can adapt the script's main function to accept input/output paths:
+## 🧩 Filter Processing Structure
 
-# Example: Running the script to apply the Portra 800 simulation
-python aura_film_script.py input_photo.jpg output_portra.jpg --filter portra_800_sim
+All filters follow a structured, multi-step process to maximize performance by minimizing repeated type conversions:
 
-# Note: You may need to edit the Python file's main execution block 
-# to select the desired filter function for a run or add command-line argument parsing.
+1. **PIL Pre-Adjustment:** Use PIL's `ImageEnhance` for efficient global control (Contrast, Brightness).
 
+2. **Clarity/Softening:** Apply light Gaussian blur using `ImageFilter` (Simulating Halation/Light-Spill).
 
-📐 Filter Processing Structure
+3. **NumPy Conversion:** Convert the PIL image to a **NumPy array** (`np.array(img, dtype=np.int16)`).
 
-All filters follow a simple, high-level structure to ensure maximum performance by minimizing repeated type conversions:
+4. **Vectorized Color Shift:** Apply RGB channel offsets and tonal curve simulations across the entire array (e.g., `arr[..., 0] += 19`).
 
-PIL Pre-Adjustment: Use PIL's ImageEnhance for efficient global control (Contrast, Brightness).
+5. **Grain/Noise:** Add **vectorized random noise** (`add_noise_vectorized`).
 
-Clarity/Softening: Apply light Gaussian blur using ImageFilter (Softening/Halation sim).
+6. **Final PIL Conversion:** Clip and convert the array back to a PIL image (`Image.fromarray`).
 
-NumPy Conversion: Convert the PIL image to a NumPy array (np.array(img, dtype=np.int16)).
-
-Vectorized Color Shift: Apply RGB channel offsets and tonal curve simulations across the entire array (e.g., arr[..., 0] += 19).
-
-Grain/Noise: Add vectorized random noise (add_noise_vectorized).
-
-Final PIL Conversion: Clip and convert the array back to a PIL image (Image.fromarray).
-
-🤝 Contribution
+## 🤝 Contribution & Future Focus
 
 Contributions are welcome! If you have a suggestion for a new film stock simulation or an optimization, please feel free to open an issue or submit a pull request.
 
-Focus areas for contribution:
+**Potential Areas for Contribution:**
 
-Implementing Dynamic Range simulations (separate shadow/highlight control).
+* **Dynamic Range:** Implementing separate shadow/highlight color control (Luma masking).
 
-Adding more Classic Film Stocks (e.g., Kodachrome, Ektar 100).
+* **Film Stocks:** Adding more classic film looks (e.g., Kodachrome, Ektar 100).
 
-Performance benchmarking against GPU-based solutions.
-
-License
-
-License: MIT
+* **Benchmarking:** Performance comparison against other filtering methods.
