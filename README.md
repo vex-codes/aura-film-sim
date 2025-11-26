@@ -27,7 +27,7 @@ The library is built for speed and authenticity:
 | `modern_fuji_sim` | **Cool & Saturated** | Cool greens, strong blues, high fidelity. | 
 | `terracotta_sun_sim` | **Warm & High Contrast** | Deep reds, crushed shadows, cinematic warmth. | 
 | `portra_800_sim` | **Soft & Fine Grain** | Soft colors, high saturation, distinct grain. | 
-| `reala_ace_sim** | **Smooth & Punchy** | Low grain, clear blacks, punchy highlights. | 
+| `reala_ace_sim` | **Smooth & Punchy** | Low grain, clear blacks, punchy highlights. | 
 | `dreamy_negative_sim` | **Muted & Shadow Lift** | Lifted shadows, soft contrast, dreamy mood. | 
 
 ## ⚙️ How to Use (As a Standalone Script)
