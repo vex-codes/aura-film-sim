@@ -1,72 +1,65 @@
-# 🎞️ AuraFilm: Vectorized Film Simulations
+## 📼 AuraFilm: Film and Camcorder Aesthetic Simulator
 
-<div align="center">
+This is the **RAW** README file for the provided Python script. The script is designed to apply classic film stock simulations and retro camcorder effects to images.
 
-</div>
+---
 
-## ✨ 🌟 Project Overview
+## ✨ Project Overview
 
-**AuraFilm** is a high-performance **Python tool** dedicated to replicating the authentic, analog look of classic film stocks. This script leverages the power of **NumPy vectorization** to apply complex color shifts, grain, and tonal adjustments directly to image arrays, resulting in beautiful and highly efficient film simulation effects.
+**AuraFilm** is a **Python script** that applies complex, multi-step image filters to replicate the look of classic analog film stocks and vintage video recordings. It uses the **Pillow (PIL)** library to handle all image manipulation, including color shifts, contrast adjustments, and the addition of stylistic elements like soft focus, grain, and an authentic glowing date/message stamp.
 
-> ℹ️ This script contains the core image filter functions that are also used in the related `camcorder-revival-tool` project.
+> ℹ️ This script contains the core image filter functions that are also used in the related **`camcorder-revival-tool`** project, providing a foundation for retro video aesthetics.
 
-## 🚀 Core Features & Simulations
+---
 
-The library is built for speed and authenticity:
+## 🚀 Core Features & Dependencies
 
-* **⚡ Vectorized Speed:** All core logic (color shifts, contrast, grain) is implemented using **NumPy** arrays, ensuring superior performance over traditional pixel-by-pixel loops.
+* **Pillow-Based Processing:** Leverages the power of **PIL/Pillow** for all image loading, manipulation (contrast, brightness, blur), and final saving.
+* **Pixel-Level Control:** Most film simulations are implemented using **pixel-by-pixel loops** to apply custom RGB shifts, luma-based adjustments, and procedural grain.
+* **Authentic Grain:** Adds randomized noise across RGB channels for a realistic film or video grain appearance.
+* **Retro Timestamp:** Includes the `add_timestamp` function to generate a distinctive, glowing, bottom-left date stamp and an optional top-right message, mimicking old video overlays.
 
-* **🧪 Procedural Grain:** Highly realistic noise addition, applied directly in the NumPy domain for speed and an organic film look.
+### 🎨 Included Aesthetic Simulations
 
-* **Minimal Dependencies:** Focused solely on two essential packages: `numpy` and `Pillow (PIL)`.
+The following unique filter simulations are available in the script:
 
-### 🎨 Included Film Aesthetic Simulations
+| Simulation Name | Aesthetic Summary | Key Characteristics |
+| :--- | :--- | :--- |
+| `modern_fuji_sim` | **Cool & Low Saturation** | Subtle cool shift, slight de-saturation, blended luma effect. |
+| `terracotta_sun_sim` | **Warm, Red/Magenta, Soft** | Strong warmth with red/magenta push, conditional blue shift, high softening, visible grain. |
+| `portra_800_sim` | **High Saturation & Warm** | Strong contrast reduction, high color boost, very visible grain, pronounced warm/pink shift. |
+| `reala_ace_sim` | **Balanced, Cool, Medium Contrast** | Balanced color profile with a slight cool tilt, medium contrast reduction, subtle grain. |
+| `dreamy_negative_sim` | **Muted, Matte & Very Warm** | Low contrast, lifted shadows (matte black), strong color boost, pronounced warm white balance. |
 
-| Simulation Name | Aesthetic Summary | Key Characteristics | 
- | ----- | ----- | ----- | 
-| `modern_fuji_sim` | **Cool & Saturated** | Cool greens, strong blues, high fidelity. | 
-| `terracotta_sun_sim` | **Warm & High Contrast** | Deep reds, crushed shadows, cinematic warmth. | 
-| `portra_800_sim` | **Soft & Fine Grain** | Soft colors, high saturation, distinct grain. | 
-| `reala_ace_sim` | **Smooth & Punchy** | Low grain, clear blacks, punchy highlights. | 
-| `dreamy_negative_sim` | **Muted & Shadow Lift** | Lifted shadows, soft contrast, dreamy mood. | 
+---
 
-## ⚙️ How to Use (As a Standalone Script)
+## ⚙️ How to Use (Standalone Script)
 
-The tool processes an input image file and saves the filtered result.
+The script is configured to process a single input image and save the filtered result based on a selected filter and user-defined text inputs.
 
 ### 1️⃣ Setup
 
-You only need to download the Python file (e.g., `aura_film_script.py`) and install the necessary packages using `pip`:
-pip install numpy pillow
+Install the single required dependency using `pip`:
 
-### 2️⃣ Applying a Filter
+```bash
+pip install pillow
+```
+### 2️⃣ Preparing the Image
 
-You can run the script directly from your terminal. Replace `input_photo.jpg` with your file and choose one of the filters from the table above.
+1.  **Save your input photo** in the same directory as the script.
+2.  **Rename your photo** to `your_input_photo.jpg` (or the name specified in the script's `input_file` variable). The script will create a placeholder if it doesn't find the file.
 
-## 🧩 Filter Processing Structure
+### 3️⃣ Running the Filter
 
-All filters follow a structured, multi-step process to maximize performance by minimizing repeated type conversions:
+Run the script directly from your terminal:
 
-1. **PIL Pre-Adjustment:** Use PIL's `ImageEnhance` for efficient global control (Contrast, Brightness).
+```bash
+python your_script_name.py
+```
+The script will prompt you for:
+* A **short message** for the top-right corner.
+* The **month, day, and 2-digit year** for the timestamp (defaults to the current date if left blank).
 
-2. **Clarity/Softening:** Apply light Gaussian blur using `ImageFilter` (Simulating Halation/Light-Spill).
+### 4️⃣ Reviewing the Output
 
-3. **NumPy Conversion:** Convert the PIL image to a **NumPy array** (`np.array(img, dtype=np.int16)`).
-
-4. **Vectorized Color Shift:** Apply RGB channel offsets and tonal curve simulations across the entire array (e.g., `arr[..., 0] += 19`).
-
-5. **Grain/Noise:** Add **vectorized random noise** (`add_noise_vectorized`).
-
-6. **Final PIL Conversion:** Clip and convert the array back to a PIL image (`Image.fromarray`).
-
-## 🤝 Contribution & Future Focus
-
-Contributions are welcome! If you have a suggestion for a new film stock simulation or an optimization, please feel free to open an issue or submit a pull request.
-
-**Potential Areas for Contribution:**
-
-* **Dynamic Range:** Implementing separate shadow/highlight color control (Luma masking).
-
-* **Film Stocks:** Adding more classic film looks (e.g., Kodachrome, Ektar 100).
-
-* **Benchmarking:** Performance comparison against other filtering methods.
+The processed image will be saved to the same directory with a filename like `retro_output_CHOSEN_FILTER.jpg`.
